@@ -1,0 +1,570 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Masterchat</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap">
+    <style>
+      body {
+        margin: 0;
+        font-family: 'Inter', Arial, sans-serif;
+        background: #f8f9fa;
+        color: #333;
+      }
+
+      header {
+        background-color: #250D4D;
+        padding: 20px;
+        color: white;
+      }
+
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      .logo {
+        font-size: 24px;
+        font-weight: bold;
+      }
+
+      .menu {
+        display: flex;
+        gap: 30px;
+      }
+
+      .menu-item {
+        position: relative;
+      }
+
+      .menu-link {
+        color: white;
+        text-decoration: none;
+        padding: 8px 0;
+        display: block;
+      }
+
+      .submenu {
+        display: none;
+        position: absolute;
+        background-color: #333;
+        top: 35px;
+        left: 0;
+        min-width: 150px;
+        z-index: 10;
+      }
+
+      .submenu a {
+        color: white;
+        text-decoration: none;
+        padding: 10px;
+        display: block;
+      }
+
+      .menu-item:hover .submenu {
+        display: block;
+      }
+
+      .hero {
+        background-color: #007bff;
+        color: white;
+        padding: 60px 20px;
+        text-align: center;
+      }
+
+      .hero h1 {
+        font-size: 48px;
+        margin-bottom: 20px;
+      }
+
+      .hero p {
+        font-size: 18px;
+        margin-bottom: 30px;
+      }
+
+      .btn {
+        padding: 12px 24px;
+        margin: 5px;
+        border: none;
+        border-radius: 4px;
+        background-color: #fff;
+        color: #007bff;
+        font-weight: bold;
+        text-decoration: none;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .btn:hover {
+        background-color: #e0e0e0;
+      }
+
+      /* ===== Planos de Preço ===== */
+      .plans-container {
+        padding: 60px 20px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+        background: #ffffff;
+      }
+
+      .plan-card {
+        width: 300px;
+        background: white;
+        border-radius: 20px;
+        padding: 20px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .plan-card-inicio{
+        width: 1100px;
+        background: white;
+        border-radius: 20px;
+        padding: 20px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .plan-card.pro {
+        background: #3a003f;
+        color: white;
+      }
+
+      .plan-card.ia {
+        background: white;
+      }
+
+      .plan-badge {
+        position: absolute;
+        top: -12px;
+        left: 20px;
+        padding: 4px 12px;
+        border-radius: 10px;
+        font-size: 12px;
+        font-weight: bold;
+        color: white;
+      }
+
+      .badge-lite { background-color: #c29bff; }
+      .badge-pro  { background-color: #f23b82; }
+      .badge-ia   { background-color: #007bff; }
+
+      .plan-img {
+        height: 160px;
+        object-fit: contain;
+        margin: 20px 0;
+      }
+
+      .plan-price {
+        font-size: 28px;
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      .plan-desc {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 20px;
+      }
+
+      .plan-card.pro .plan-desc {
+        color: #ccc;
+      }
+
+      .features {
+        list-style: none;
+        padding: 0;
+        text-align: left;
+        width: 100%;
+        margin-bottom: 20px;
+      }
+
+      .features li {
+        display: flex;
+        align-items: center;
+        margin: 10px 0;
+        font-size: 14px;
+      }
+
+      .features li img {
+        width: 18px;
+        margin-right: 10px;
+      }
+
+      .cta-button {
+        padding: 12px 24px;
+        background: #a463f2;
+        color: white;
+        border: none;
+        border-radius: 30px;
+        font-weight: bold;
+        text-decoration: none;
+        margin-top: auto;
+        transition: background 0.3s;
+      }
+
+      .plan-card.pro .cta-button {
+        background: #ff5e5e;
+      }
+
+      .plan-card.ia .cta-button {
+        background: #007bff;
+      }
+
+      .cta-button:hover {
+        opacity: 0.9;
+      }
+
+      footer {
+        background-color: #1a1a1a;
+        color: white;
+        text-align: center;
+        padding: 20px;
+        margin-top: 40px;
+      }
+      .section-label,
+      .section-title {
+        display: flex;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+
+  <header>
+    <div class="navbar">
+      <div class="logo">
+        <a href="./index.html" class="menu-link">
+          <img src="./imagens/julia.png" style="width:150px;" alt="Logo Julia">
+        </a>
+      </div>
+      <nav class="menu">
+        <div class="menu-item">
+          <a href="#" class="menu-link">Funcionalidades</a>
+          <div class="submenu">
+            <a href="https://www.google.com">Gestão</a>
+            <a href="#">Relatórios</a>
+            <a href="#">Notificações</a>
+          </div>
+        </div>
+        <div class="menu-item">
+          <a href="./precos.html" class="menu-link">Planos</a>
+        </div>
+        <div class="menu-item">
+          <a href="https://api.whatsapp.com/send/?phone=5511973465385&text&type=phone_number&app_absent=0" class="menu-link">Suporte</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <section style="background-color: #ffffff; padding: 60px 0;">
+    <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 15px; display: flex; flex-wrap: wrap; align-items: center; gap: 40px;">
+      
+      <!-- Imagem à esquerda -->
+      <div style="flex: 1; min-width: 400px;">
+        <img src="./imagens/img_inicial.png" alt="Atendimento Omnichannel" style="width: 100%; border-radius: 12px;">
+      </div>
+  
+      <!-- Texto à direita -->
+      <div style="flex: 1; min-width: 300px;">
+        <h2 style="font-size: 16px; color: #7a8fa6; margin-bottom: 10px;">
+          Escale suas vendas e atendimento de forma eficiente e automatizada.
+        </h2>
+        <h3 style="font-size: 28px; color: #111; margin-bottom: 15px;">
+          Atendimento Omnichannel com <span style="color: #8e44ad;">Inteligência Artificial</span>
+        </h3>
+        <p style="font-size: 18px; color: #34495e; line-height: 1.6; text-align: justify;">
+          <strong>JulIA OM</strong> (omnichannel), a ferramenta que organiza e facilita o atendimento da sua empresa.
+          Unifique o atendimento da sua empresa com uma plataforma fácil de usar que une todo o seu time em um único número.
+          Transforme a experiência do cliente com respostas rápidas, precisas e personalizadas.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section style="background-color: #ffffff; padding-top: 10px; padding-bottom: 30px;">
+    <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 15px;">
+      <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
+        
+        <!-- Caixa 1 -->
+        <div style="flex: 1 1 calc(20% - 15px); background-color: #ffffff; border-radius: 16px; padding: 20px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); display: flex; gap: 12px; align-items: flex-start;">
+          <img src="icone1.svg" alt="Ícone Atrair" style="width: 28px; height: 28px; flex-shrink: 0;">
+          <div>
+            <h3 style="font-size: 17px; color: #2c3e50; margin: 0 0 8px;">ATRAIR</h3>
+            <p style="font-size: 14px; color: #34495e; line-height: 1.5; text-align: justify;">
+              Revolucione o atendimento com nossa IA multicanal e conquiste seu público instantaneamente.
+            </p>
+          </div>
+        </div>
+  
+        <!-- Caixa 2 -->
+        <div style="flex: 1 1 calc(20% - 15px); background-color: #ffffff; border-radius: 16px; padding: 20px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); display: flex; gap: 12px; align-items: flex-start;">
+          <img src="icone2.svg" alt="Ícone Converter" style="width: 28px; height: 28px; flex-shrink: 0;">
+          <div>
+            <h3 style="font-size: 17px; color: #2c3e50; margin: 0 0 8px;">CONVERTER</h3>
+            <p style="font-size: 14px; color: #34495e; line-height: 1.5; text-align: justify;">
+              Converta interações em vendas com respostas inteligentes e personalizadas.
+            </p>
+          </div>
+        </div>
+  
+        <!-- Caixa 3 -->
+        <div style="flex: 1 1 calc(20% - 15px); background-color: #ffffff; border-radius: 16px; padding: 20px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); display: flex; gap: 12px; align-items: flex-start;">
+          <img src="icone3.svg" alt="Ícone Vender" style="width: 28px; height: 28px; flex-shrink: 0;">
+          <div>
+            <h3 style="font-size: 17px; color: #2c3e50; margin: 0 0 8px;">VENDER</h3>
+            <p style="font-size: 14px; color: #34495e; line-height: 1.5; text-align: justify;">
+              Maximize suas vendas com um atendimento que nunca perde uma oportunidade, 24/7.
+            </p>
+          </div>
+        </div>
+  
+        <!-- Caixa 4 -->
+        <div style="flex: 1 1 calc(20% - 15px); background-color: #ffffff; border-radius: 16px; padding: 20px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); display: flex; gap: 12px; align-items: flex-start;">
+          <img src="icone4.svg" alt="Ícone Encantar" style="width: 28px; height: 28px; flex-shrink: 0;">
+          <div>
+            <h3 style="font-size: 17px; color: #2c3e50; margin: 0 0 8px;">ENCANTAR</h3>
+            <p style="font-size: 14px; color: #34495e; line-height: 1.5; text-align: justify;">
+              Encante seus clientes com uma experiência de atendimento ágil, eficiente e personalizada.
+            </p>
+          </div>
+        </div>
+  
+      </div>
+    </div>
+  </section>
+  
+  
+
+  <section class="ai-agents-for-lawyers" style="background-color: #f8f9fa; padding: 60px 0; position: flex; align-items: right;">
+    <div class="plan-card-inicio" style="max-width: 1250px; margin: 0 auto; padding: 0 20px;">
+      <p style="color: #7a8fa6; font-weight: 600; text-align: center; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px;">
+        • Agentes de IA para advogados •
+      </p>
+      <h2 style="font-size: 2rem; font-weight: bold; text-align: center; color: #111; margin-bottom: 30px;">
+        Funcionalidades Inteligentes no atendimento<br>em Escritórios de Advocacia
+      </h2>
+      <div >
+        <p class="section-text" style="font-size: 20px; color: #34495e; line-height: 1.6;  margin-bottom: 30px;">
+          A <span style="font-weight: bold; color: #2c3e50;">Julia IA</span> revoluciona a gestão do seu escritório de advocacia, oferecendo recursos de última geração para maximizar a eficiência do seu atendimento. Com nossa plataforma integrada e intuitiva, você poderá:
+        </p>
+        <ul class="features-list" style="list-style-type: none; padding-left: 0; margin-bottom: 30px;">
+          <li style="font-size: 18px; color: #34495e; margin-bottom: 15px; display: flex; align-items: flex-start;">
+            <span style="font-weight: bold; color: #2c3e50; margin-left: 15px;">• Atender clientes com agilidade e precisão, proporcionando uma experiência de atendimento impecável.</span> 
+          </li>
+          <li style="font-size: 18px; color: #34495e; margin-bottom: 15px; display: flex; align-items: flex-start;">
+            <span style="font-weight: bold; color: #2c3e50; margin-left: 15px;">• Qualificar leads automaticamente, garantindo que você foque nos melhores prospects para o seu escritório.</span>
+          </li>
+          <li style="font-size: 18px; color: #34495e; margin-bottom: 15px; display: flex; align-items: flex-start;">
+            <span style="font-weight: bold; color: #2c3e50; margin-left: 15px;">• Gerar resumos automáticos das conversas, economizando tempo e aumentando a produtividade.</span>
+          </li>
+          <li style="font-size: 18px; color: #34495e; margin-bottom: 15px; display: flex; align-items: flex-start;">
+            <span style="font-weight: bold; color: #2c3e50; margin-left: 15px;">• Facilitar o fechamento de contratos, integrando todos os passos de forma simples e eficiente.</span>
+          </li>
+        </ul>
+        <p class="section-text" style="font-size: 20px; color: #34495e; line-height: 1.6;  margin-bottom: 20px;">
+          Tudo isso, em uma única plataforma que integra as necessidades do seu escritório, com a inovação que você precisa para crescer e se destacar no mercado.
+        </p>
+      </div>
+    </div>
+  </section>
+  
+  
+  
+  <section style="background-color: #ffffff; padding: 60px 20px; font-family: 'Inter', sans-serif;">
+    <div style="max-width: 1200px; margin: 0 auto; text-align: center;">
+      <p style="color: #7a8fa6; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px;">
+        Atendimento Centralizado
+      </p>
+      <h2 style="font-size: 2rem; font-weight: bold; color: #111; margin-bottom: 50px;">
+        Multi Atendimento Whatsapp em um único número.
+      </h2>
+  
+      <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 40px;">
+        <!-- Coluna 1 -->
+        <div style="flex: 1 1 300px; max-width: 320px; background-color: #e3f3ff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease-in-out;">
+          <img src="icone-relogio.svg" alt="Ícone Agilidade" style="width: 60px; margin-bottom: 20px;">
+          <h3 style="font-weight: 600; font-size: 1.2rem; color: #333;">Agilidade no atendimento</h3>
+          <p style="margin-top: 10px; color: #555;">
+            Atenda um grande número de clientes simultaneamente,<br>
+            Reduzindo o tempo de espera e aumentando a satisfação dos clientes.
+          </p>
+        </div>
+  
+        <!-- Coluna 2 -->
+        <div style="flex: 1 1 300px; max-width: 320px; background-color: #e3f3ff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease-in-out;">
+          <img src="icone-foguete.svg" alt="Ícone Eficiência" style="width: 60px; margin-bottom: 20px;">
+          <h3 style="font-weight: 600; font-size: 1.2rem; color: #333;">Eficiência operacional</h3>
+          <p style="margin-top: 10px; color: #555;">
+            Maximize a produtividade da sua equipe com automação de processos de CRM, com agendamento de mensagens,<br> 
+            etiquetagem de contatos e controle de leads.
+          </p>
+        </div>
+  
+        <!-- Coluna 3 -->
+        <div style="flex: 1 1 300px; max-width: 320px; background-color: #e3f3ff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease-in-out;">
+          <img src="icone-engrenagem.svg" alt="Ícone Disponibilidade" style="width: 60px; margin-bottom: 20px;">
+          <h3 style="font-weight: 600; font-size: 1.2rem; color: #333;">Alta Disponibilidade</h3>
+          <p style="margin-top: 10px; color: #555;">
+            Os clientes podem entrar em contato a qualquer hora do dia,<br>
+            tendo sempre um atendente disponível! Aumentando a conveniência e flexibilidade.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+
+  <section style="background-color: #f7f9fc; padding: 60px 20px;">
+    <div style="max-width: 1200px; margin: 0 auto; font-family: 'Inter', sans-serif;">
+      <p style="color: #7a8fa6; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">
+        • Alguns dos nossos recursos e funcionalidades
+      </p>
+      <h2 style="font-size: 2rem; font-weight: bold; color: #111; margin-top: 10px; margin-bottom: 40px;">
+        Você pode organizar os vários setores da sua empresa em uma só plataforma.
+      </h2>
+  
+      <table style="width: 100%; border-collapse: separate; border-spacing: 20px 0px;">
+        <tr>
+          <td valign="top" style="width: 50%;">
+            <p><strong style="color: #00aaff;">01.</strong> <strong>Multi Atendente</strong><br>
+            Tenha vários atendentes com apenas um número de WhatsApp.</p>
+          </td>
+          <td valign="top" style="width: 50%;">
+            <p><strong style="color: #00aaff;">02.</strong> <strong>Filas de Atendimento</strong><br>
+            Crie suas filas de atendimento como por exemplo, Suporte, Comercial, Financeiro e etc.</p>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">
+            <p><strong style="color: #00aaff;">03.</strong> <strong>Respostas Rápidas</strong><br>
+            Cadastre respostas rápidas, para dar mais velocidade ao atendimento.</p>
+          </td>
+          <td valign="top">
+            <p><strong style="color: #00aaff;">04.</strong> <strong>Mensagens Automáticas</strong><br>
+            Mensagem de boas-vindas, atendimento finalizado e fora de expediente.</p>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">
+            <p><strong style="color: #00aaff;">05.</strong> <strong>Horários de Atendimento</strong><br>
+            Configure seu horário de atendimento, e mensagem de ausência.</p>
+          </td>
+          <td valign="top">
+            <p><strong style="color: #00aaff;">06.</strong> <strong>Agendamento de Mensagens</strong><br>
+            Agende uma mensagem para seu cliente, escolhendo uma data e horário para esse envio.</p>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">
+            <p><strong style="color: #00aaff;">07.</strong> <strong>Etiquetas (Tags)</strong><br>
+            Crie etiquetas personalizadas para organizar ainda mais os seus clientes.</p>
+          </td>
+          <td valign="top">
+            <p><strong style="color: #00aaff;">08.</strong> <strong>CRM</strong><br>
+            Otimize os Processos e Fluxo de Atendimento com a nossa CRM. Acompanhe toda a jornada do seu cliente criando funis poderosos de vendas.</p>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">
+            <p><strong style="color: #00aaff;">09.</strong> <strong>INTELIGÊNCIA ARTIFICIAL</strong><br>
+            Automatize até 70% das demandas dos clientes e transfira para um atendente humano quando for realmente necessário.</p>
+          </td>
+          <td valign="top">
+            <p><strong style="color: #00aaff;">10.</strong> <strong>TRANSFERÊNCIA DE CONVERSAS</strong><br>
+            Transfira as conversas entre os atendentes e os departamentos garantindo agilidade no atendimento aos seus clientes.</p>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </section>
+  
+  
+  
+  <!-- Seção de Planos -->
+  <section id="planos" class="plans-container">
+
+    <div class="plan-card">
+      <span class="plan-badge badge-lite">MASTERCHAT LITE</span>
+      <img src="https://via.placeholder.com/250x150?text=Chat+Lite" alt="Chat Lite" class="plan-img">
+      <div class="plan-price">R$ 125,00</div>
+      <div class="plan-desc">Preços Mensais</div>
+      <ul class="features">
+        <li><img src="https://img.icons8.com/emoji/16/000000/check-mark-emoji.png"/>1 Administrador</li>
+        <li><img src="https://img.icons8.com/emoji/16/000000/check-mark-emoji.png"/>2 Agentes/Atendentes</li>
+        <li><img src="https://img.icons8.com/emoji/16/000000/check-mark-emoji.png"/>1 WhatsApp</li>
+        <li><img src="https://img.icons8.com/emoji/16/000000/check-mark-emoji.png"/>CRM base</li>
+        <li><img src="https://img.icons8.com/emoji/16/000000/cross-mark-emoji.png"/>Automações</li>
+        <li><img src="https://img.icons8.com/emoji/16/000000/cross-mark-emoji.png"/>Integrações</li>
+        <li><img src="https://img.icons8.com/emoji/16/000000/cross-mark-emoji.png"/>API</li>
+        <li><img src="https://img.icons8.com/emoji/16/000000/cross-mark-emoji.png"/>Bot Atendimento</li>
+        <li><img src="https://img.icons8.com/emoji/16/000000/cross-mark-emoji.png"/>Bônus Contratação Agente IA</li>
+      </ul>
+      <a href="./precos.html" class="cta-button">SAIBA MAIS...</a>
+    </div>
+
+    <div class="plan-card pro">
+      <span class="plan-badge badge-pro">MASTERCHAT</span>
+      <img src="https://via.placeholder.com/250x150?text=Chat+Pro" alt="Chat Pro" class="plan-img">
+      <div class="plan-price">R$ 597,00</div>
+      <div class="plan-desc">Preços Mensais</div>
+      <ul class="features">
+        <li><img src="https://img.icons8.com/emoji/16/ffffff/check-mark-emoji.png"/>1 Administrador</li>
+        <li><img src="https://img.icons8.com/emoji/16/ffffff/check-mark-emoji.png"/>2 Agentes/Atendentes</li>
+        <li><img src="https://img.icons8.com/emoji/16/ffffff/check-mark-emoji.png"/>Vários WhatsApp</li>
+        <li><img src="https://img.icons8.com/emoji/16/ffffff/check-mark-emoji.png"/>Instagram, Messenger, Facebook, Chat, Site</li>
+        <li><img src="https://img.icons8.com/emoji/16/ffffff/check-mark-emoji.png"/>Chat Interno</li>
+        <li><img src="https://img.icons8.com/emoji/16/ffffff/check-mark-emoji.png"/>Mensagens Ilimitadas</li>
+        <li><img src="https://img.icons8.com/emoji/16/ffffff/check-mark-emoji.png"/>Tags/Etiquetas</li>
+        <li><img src="https://img.icons8.com/emoji/16/ffffff/check-mark-emoji.png"/>CRM Chat</li>
+        <li><img src="https://img.icons8.com/emoji/16/ffffff/check-mark-emoji.png"/>Automações</li>
+        <li><img src="https://img.icons8.com/emoji/16/ffffff/check-mark-emoji.png"/>Integrações</li>
+        <li><img src="https://img.icons8.com/emoji/16/ffffff/check-mark-emoji.png"/>API</li>
+        <li><img src="https://img.icons8.com/emoji/16/ffffff/check-mark-emoji.png"/>Bot Atendimento</li>
+        <li><img src="https://img.icons8.com/emoji/16/ffffff/check-mark-emoji.png"/>Bônus Contratação Agente IA</li>
+      </ul>
+      <a href="./precos.html" class="cta-button">SAIBA MAIS...</a>
+    </div>
+
+    <div class="plan-card ia">
+      <span class="plan-badge badge-ia">MASTERCHAT + JULIA</span>
+      <img src="https://via.placeholder.com/150x150?text=IA" alt="IA" class="plan-img">
+      <div class="plan-price">R$ 1094,00</div>
+      <div class="plan-desc">a partir deste valor mensal</div>
+      <p style="text-align:center; font-weight: bold; margin: 10px 0;">
+        Assistente Jurídica 24h no seu escritório
+      </p>
+      <ul class="features">
+        <li><img src="https://img.icons8.com/emoji/16/000000/check-mark-emoji.png"/>Todos benefícios do Masterchat</li>
+        <li><img src="https://img.icons8.com/emoji/16/000000/check-mark-emoji.png"/>300 atendimentos</li>
+        <li><img src="https://img.icons8.com/emoji/16/000000/check-mark-emoji.png"/>Responde texto e áudio</li>
+        <li><img src="https://img.icons8.com/emoji/16/000000/check-mark-emoji.png"/>Qualifica o seu lead</li>
+        <li><img src="https://img.icons8.com/emoji/16/000000/check-mark-emoji.png"/>Recupera seu lead</li>
+        <li><img src="https://img.icons8.com/emoji/16/000000/check-mark-emoji.png"/>Liga para lead</li>
+        <li><img src="https://img.icons8.com/emoji/16/000000/check-mark-emoji.png"/>Faz resumo dos atendimentos</li>
+        <li><img src="https://img.icons8.com/emoji/16/000000/check-mark-emoji.png"/>Preenche Contrato</li>
+        <li><img src="https://img.icons8.com/emoji/16/000000/check-mark-emoji.png"/>Faz agendamentos</li>
+      </ul>
+      <a href="./precos.html" class="cta-button">SAIBA MAIS...</a>
+    </div>
+
+  </section>
+
+  <footer>
+    &copy; 2025 Masterchat. Todos os direitos reservados.
+  </footer>
+
+</body>
+</html>
